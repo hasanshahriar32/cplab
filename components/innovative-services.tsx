@@ -495,7 +495,7 @@ export default function InnovativeServices() {
                               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                             </div>
                             <div className="bg-gray-600 text-gray-300 text-xs px-2 py-1 rounded flex-1 text-center">
-                              www.motionmedia.com
+                              cplab.paradox-bd.com
                             </div>
                           </div>
                         </div>
