@@ -1,4 +1,3 @@
-import "./globals.css"
 import { Inter } from "next/font/google"
 import type React from "react"
 import type { Metadata } from "next"
@@ -18,9 +17,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} bg-background text-foreground antialiased`}>
-        <MouseMoveEffect />
+    <html lang="en">
+      <body className={inter.className}>
         {children}
       </body>
     </html>
