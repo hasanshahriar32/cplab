@@ -1,5 +1,4 @@
-import pkg from 'next-pwa'
-const { withPWA } = pkg
+import withPWA from 'next-pwa'
 import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
