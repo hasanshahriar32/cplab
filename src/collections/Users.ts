@@ -6,6 +6,13 @@ export const Users: CollectionConfig = {
     useAsTitle: "email",
   },
   auth: {
+    maxLoginAttempts: 50, // Very high limit for admins
+    lockTime: 1 * 60 * 1000, // 1 minute lock time (very short)
+    useAPIKey: false,
+    cookies: {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Lax',
+    },
     forgotPassword: {
       generateEmailHTML: (args) => {
         const { token, user } = args || {};
