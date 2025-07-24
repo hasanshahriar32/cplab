@@ -1,6 +1,7 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { mongooseAdapter } from "@payloadcms/db-mongodb"
 import { lexicalEditor } from "@payloadcms/richtext-lexical"
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer"
 import { buildConfig } from "payload"
 import sharp from "sharp"
 import path from "path"
@@ -47,6 +48,20 @@ export default buildConfig({
   },
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || "",
+  }),
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.SMTP_FROM_EMAIL || 'noreply@example.com',
+    defaultFromName: process.env.SMTP_FROM_NAME || 'Cyber Lab',
+    // Nodemailer transporter configuration
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    },
   }),
   sharp,
   plugins: [

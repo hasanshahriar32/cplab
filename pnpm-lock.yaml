@@ -23,6 +23,9 @@ importers:
       '@payloadcms/db-mongodb':
         specifier: latest
         version: 3.48.0(payload@3.48.0(graphql@16.11.0)(typescript@5.8.3))
+      '@payloadcms/email-nodemailer':
+        specifier: ^3.48.0
+        version: 3.48.0(payload@3.48.0(graphql@16.11.0)(typescript@5.8.3))
       '@payloadcms/next':
         specifier: latest
         version: 3.48.0(@types/react@19.1.8)(graphql@16.11.0)(monaco-editor@0.52.2)(next@15.4.3(@babel/core@7.28.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.48.0(graphql@16.11.0)(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
@@ -158,6 +161,9 @@ importers:
       next-themes:
         specifier: latest
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      nodemailer:
+        specifier: ^7.0.5
+        version: 7.0.5
       path:
         specifier: latest
         version: 0.12.7
@@ -207,6 +213,9 @@ importers:
       '@types/node':
         specifier: ^22
         version: 22.16.5
+      '@types/nodemailer':
+        specifier: ^6.4.17
+        version: 6.4.17
       '@types/react':
         specifier: ^19
         version: 19.1.8
@@ -1458,6 +1467,12 @@ packages:
     peerDependencies:
       payload: 3.48.0
 
+  '@payloadcms/email-nodemailer@3.48.0':
+    resolution: {integrity: sha512-DSdh8y8t46e2pb8qoWn2bgWEMnhD8/ZZOF/XG1Gcqn6ErVYlQZP9DhVrv1rEC8rylYoXOrPf/yJ+eJIXEPKleQ==}
+    engines: {node: ^18.20.2 || >=20.9.0}
+    peerDependencies:
+      payload: 3.48.0
+
   '@payloadcms/graphql@3.48.0':
     resolution: {integrity: sha512-kwqghSNM4yojfztEBoIzEIs7ahCWPA/BT2pEcK//Pny6cLEAd3ZAE1rJp7RgWLmUAFg/Guvb1Pv8F6WGx7UgVg==}
     hasBin: true
@@ -2267,6 +2282,9 @@ packages:
 
   '@types/node@22.16.5':
     resolution: {integrity: sha512-bJFoMATwIGaxxx8VJPeM8TonI8t579oRvgAuT8zFugJsJZgzqv0Fu8Mhp68iecjzG7cnN3mO2dJQ5uUM2EFrgQ==}
+
+  '@types/nodemailer@6.4.17':
+    resolution: {integrity: sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -3868,6 +3886,14 @@ packages:
 
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
+
+  nodemailer@6.9.16:
+    resolution: {integrity: sha512-psAuZdTIRN08HKVd/E8ObdV6NO7NTBY3KsC30F7M4H1OnmLCUNaS56FpYxyb26zWLSyYF9Ozch9KYHhHegsiOQ==}
+    engines: {node: '>=6.0.0'}
+
+  nodemailer@7.0.5:
+    resolution: {integrity: sha512-nsrh2lO3j4GkLLXoeEksAMgAOqxOv6QumNRVQTJwKH4nuiww6iC2y7GyANs9kRAxCexg3+lTWM3PZ91iLlVjfg==}
+    engines: {node: '>=6.0.0'}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -6361,6 +6387,11 @@ snapshots:
       - socks
       - supports-color
 
+  '@payloadcms/email-nodemailer@3.48.0(payload@3.48.0(graphql@16.11.0)(typescript@5.8.3))':
+    dependencies:
+      nodemailer: 6.9.16
+      payload: 3.48.0(graphql@16.11.0)(typescript@5.8.3)
+
   '@payloadcms/graphql@3.48.0(graphql@16.11.0)(payload@3.48.0(graphql@16.11.0)(typescript@5.8.3))(typescript@5.8.3)':
     dependencies:
       graphql: 16.11.0
@@ -7327,6 +7358,10 @@ snapshots:
   '@types/node@22.16.5':
     dependencies:
       undici-types: 6.21.0
+
+  '@types/nodemailer@6.4.17':
+    dependencies:
+      '@types/node': 22.16.5
 
   '@types/parse-json@4.0.2': {}
 
@@ -9125,6 +9160,10 @@ snapshots:
       - babel-plugin-macros
 
   node-releases@2.0.19: {}
+
+  nodemailer@6.9.16: {}
+
+  nodemailer@7.0.5: {}
 
   normalize-path@3.0.0: {}
 
