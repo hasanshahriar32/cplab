@@ -15,6 +15,8 @@ import { Media } from "./src/collections/Media"
 import { ResearchWorks } from "./src/collections/ResearchWorks"
 import { Certificates } from "./src/collections/Certificates"
 import { LabNews } from "./src/collections/LabNews"
+import { Audiences } from "./src/collections/Audiences"
+import { Contacts } from "./src/collections/Contacts"
 import { Settings } from "./src/globals/Settings"
 import { Navigation } from "./src/globals/Navigation"
 import { HomePage } from "./src/globals/HomePage"
@@ -38,7 +40,9 @@ export default buildConfig({
     Testimonials, 
     CaseStudies, 
     BlogPosts, 
-    Media
+    Media,
+    Audiences,
+    Contacts
   ],
   globals: [Settings, Navigation, HomePage],
   editor: lexicalEditor(),
