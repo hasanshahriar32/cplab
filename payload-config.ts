@@ -1,10 +1,9 @@
+import { mongooseAdapter } from "@payloadcms/db-mongodb"
 import { buildConfig } from "payload"
 import path from "path"
 
 // This is imported in the root layout on the frontend
 // https://payloadcms.com/docs/configuration/overview#importing-the-config-in-client-components
-
-const mockModulePath = path.resolve(process.cwd(), "src/payload.config.ts")
 
 export default buildConfig({
   admin: {
@@ -17,6 +16,8 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(process.cwd(), "payload-types.ts"),
   },
-  db: {} as any, // This is overridden in src/payload.config.ts
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URI || "",
+  }),
   plugins: [],
 })
