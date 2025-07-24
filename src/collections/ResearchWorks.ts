@@ -9,8 +9,17 @@ export const ResearchWorks: CollectionConfig = {
     create: ({ req: { user } }) => {
       return user?.role === "admin" || user?.role === "student"
     },
-    update: ({ req: { user }, data }) => {
-      return user?.role === "admin" || user?.id === data.author
+    update: ({ req: { user } }) => {
+      // Admins can update any research work
+      if (user?.role === "admin") return true
+      
+      // Students can only update their own research works
+      // This will be handled by the hook to check authorship
+      return user?.role === "student"
+    },
+    delete: ({ req: { user } }) => {
+      // Only admins can delete research works
+      return user?.role === "admin"
     },
   },
   fields: [
@@ -218,16 +227,31 @@ export const ResearchWorks: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [
-      ({ req, data }) => {
+      async ({ req, data, operation, originalDoc }) => {
         if (req.user) {
-          // Set the first author as the current user if not set
-          if (!data.authors || data.authors.length === 0) {
+          // For create operations, set the first author as the current user if not set
+          if (operation === 'create' && (!data.authors || data.authors.length === 0)) {
             data.authors = [
               {
                 author: req.user.id,
                 isMainAuthor: true,
               },
             ]
+          }
+          
+          // For update operations, validate that students can only edit their own work
+          if (operation === 'update' && req.user.role === 'student' && req.user.id) {
+            if (originalDoc?.authors && Array.isArray(originalDoc.authors)) {
+              const isAuthor = originalDoc.authors.some((authorEntry: any) => 
+                authorEntry.author && req.user && authorEntry.author.toString() === req.user.id.toString()
+              )
+              
+              if (!isAuthor) {
+                throw new Error('Students can only edit research works they have authored.')
+              }
+            } else {
+              throw new Error('Students can only edit research works they have authored.')
+            }
           }
         }
         return data
