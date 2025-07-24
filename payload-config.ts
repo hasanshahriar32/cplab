@@ -10,6 +10,9 @@ import { Testimonials } from "./src/collections/Testimonials"
 import { CaseStudies } from "./src/collections/CaseStudies"
 import { BlogPosts } from "./src/collections/BlogPosts"
 import { Media } from "./src/collections/Media"
+import { ResearchWorks } from "./src/collections/ResearchWorks"
+import { Certificates } from "./src/collections/Certificates"
+import { LabNews } from "./src/collections/LabNews"
 import { Settings } from "./src/globals/Settings"
 import { Navigation } from "./src/globals/Navigation"
 
@@ -23,7 +26,17 @@ export default buildConfig({
       baseDir: path.resolve(process.cwd()),
     },
   },
-  collections: [Users, Services, Testimonials, CaseStudies, BlogPosts, Media],
+  collections: [
+    Users, 
+    ResearchWorks, 
+    Certificates, 
+    LabNews, 
+    Services, 
+    Testimonials, 
+    CaseStudies, 
+    BlogPosts, 
+    Media
+  ],
   globals: [Settings, Navigation],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

@@ -4,7 +4,7 @@ import Navbar from "@/components/navbar"
 import Hero from "@/components/hero"
 import HowWeWork from "@/components/how-we-work"
 import InnovativeServices from "@/components/innovative-services"
-import ROICalculatorHome from "@/components/roi-calculator-home"
+import ResearchImpactCalculator from "@/components/roi-calculator-home"
 import AnimatedFooter from "@/components/animated-footer"
 import BackgroundPaths from "@/components/background-paths"
 
@@ -20,7 +20,7 @@ export default function Home() {
         <Hero />
         <HowWeWork />
         <InnovativeServices />
-        <ROICalculatorHome />
+        <ResearchImpactCalculator />
         <AnimatedFooter />
       </div>
     </div>

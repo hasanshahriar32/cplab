@@ -40,10 +40,10 @@ export default function ContactPage() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">Get In Touch</h1>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">Contact Our Lab</h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Ready to transform your brand? Let's start a conversation about your goals and how we can help you achieve
-            them.
+            Interested in research collaboration, joining our team, or learning more about our work? 
+            We'd love to hear from you and explore potential opportunities together.
           </p>
         </motion.div>
 
@@ -64,7 +64,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Email</p>
-                    <p className="text-white">hello@motionrecords.com</p>
+                    <p className="text-white">info@cyberphysicallab.com</p>
                   </div>
                 </div>
 
@@ -84,7 +84,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Location</p>
-                    <p className="text-white">Los Angeles, CA</p>
+                    <p className="text-white">Department of Computer Science, University Campus</p>
                   </div>
                 </div>
 
@@ -93,8 +93,8 @@ export default function ContactPage() {
                     <Clock className="h-6 w-6 text-orange-400" />
                   </div>
                   <div>
-                    <p className="text-gray-400 text-sm">Business Hours</p>
-                    <p className="text-white">Mon - Fri: 9AM - 6PM PST</p>
+                    <p className="text-gray-400 text-sm">Office Hours</p>
+                    <p className="text-white">Mon - Fri: 9AM - 5PM</p>
                   </div>
                 </div>
               </div>
@@ -203,7 +203,6 @@ export default function ContactPage() {
                     type="submit"
                     className="w-full bg-white text-black hover:bg-gray-100"
                     disabled={isSubmitting}
-                    gradient="radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(37,99,235,0.1) 50%, rgba(29,78,216,0) 100%)"
                   >
                     {isSubmitting ? (
                       <>

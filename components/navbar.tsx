@@ -53,28 +53,27 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-3">
-                <Image
-                  src="/motion-records-logo.png"
-                  alt="Motion Records LLC"
-                  width={120}
-                  height={40}
-                  className="h-8 w-auto brightness-0 invert"
-                />
+                <div className="text-white text-xl font-bold">
+                  Cyber Physical Lab
+                </div>
               </Link>
             </div>
 
             <div className="hidden md:block">
               <div className="flex items-center space-x-8">
-                <Link href="/services" className="text-sm text-gray-300 hover:text-blue-400 transition-colors">
-                  Services
+                <Link href="/research" className="text-sm text-gray-300 hover:text-blue-400 transition-colors">
+                  Research
                 </Link>
-                <Link href="/artists" className="text-sm text-gray-300 hover:text-purple-400 transition-colors">
-                  Artists
+                <Link href="/team" className="text-sm text-gray-300 hover:text-purple-400 transition-colors">
+                  Team
                 </Link>
-                <Link href="/success-stories" className="text-sm text-gray-300 hover:text-green-400 transition-colors">
-                  Success Stories
+                <Link href="/publications" className="text-sm text-gray-300 hover:text-green-400 transition-colors">
+                  Publications
                 </Link>
-                <Link href="/contact" className="text-sm text-gray-300 hover:text-orange-400 transition-colors">
+                <Link href="/news" className="text-sm text-gray-300 hover:text-orange-400 transition-colors">
+                  News
+                </Link>
+                <Link href="/contact" className="text-sm text-gray-300 hover:text-pink-400 transition-colors">
                   Contact
                 </Link>
               </div>
@@ -87,9 +86,9 @@ export default function Navbar() {
               >
                 Admin Login
               </Link>
-              <Link href="/get-started">
+              <Link href="/research">
                 <AnimatedButton size="sm" className="bg-white text-black hover:bg-gray-100">
-                  Get Started
+                  Join Research
                 </AnimatedButton>
               </Link>
             </div>
@@ -106,24 +105,27 @@ export default function Navbar() {
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-700/50 bg-gray-900/80 backdrop-blur-md rounded-b-2xl">
             <div className="px-6 py-4 space-y-3">
-              <Link href="/services" className="block text-gray-300 hover:text-blue-400">
-                Services
+              <Link href="/research" className="block text-gray-300 hover:text-blue-400">
+                Research
               </Link>
-              <Link href="/artists" className="block text-gray-300 hover:text-purple-400">
-                Artists
+              <Link href="/team" className="block text-gray-300 hover:text-purple-400">
+                Team
               </Link>
-              <Link href="/success-stories" className="block text-gray-300 hover:text-green-400">
-                Success Stories
+              <Link href="/publications" className="block text-gray-300 hover:text-green-400">
+                Publications
               </Link>
-              <Link href="/contact" className="block text-gray-300 hover:text-orange-400">
+              <Link href="/news" className="block text-gray-300 hover:text-orange-400">
+                News
+              </Link>
+              <Link href="/contact" className="block text-gray-300 hover:text-pink-400">
                 Contact
               </Link>
               <div className="pt-3 border-t border-gray-700">
                 <Link href="/admin" className="block text-gray-300 hover:text-white py-2">
                   Admin Login
                 </Link>
-                <Link href="/get-started" className="block mt-2">
-                  <AnimatedButton className="w-full bg-white text-black hover:bg-gray-100">Get Started</AnimatedButton>
+                <Link href="/research" className="block mt-2">
+                  <AnimatedButton className="w-full bg-white text-black hover:bg-gray-100">Join Research</AnimatedButton>
                 </Link>
               </div>
             </div>

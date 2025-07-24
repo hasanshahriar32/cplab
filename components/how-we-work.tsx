@@ -6,24 +6,24 @@ import { Search, Lightbulb, Rocket } from "lucide-react"
 const steps = [
   {
     number: "01",
-    title: "Discovery & Analysis",
-    description: "We dive deep into your needs, exploring ideas and defining strategies for long-term success.",
+    title: "Research & Discovery",
+    description: "We identify research challenges, explore innovative solutions, and formulate research questions that drive technological advancement.",
     icon: <Search className="w-8 h-8" />,
     mockup: "discovery",
     gradient: "from-blue-500/20 to-blue-600/10",
   },
   {
     number: "02",
-    title: "Development & Test",
-    description: "We craft tailored solutions for your goals and rigorously test them for top-notch reliability.",
+    title: "Development & Innovation",
+    description: "We develop cutting-edge prototypes, conduct experiments, and create novel algorithms and systems that push the boundaries of technology.",
     icon: <Lightbulb className="w-8 h-8" />,
     mockup: "development",
     gradient: "from-purple-500/20 to-purple-600/10",
   },
   {
     number: "03",
-    title: "Launch & Maintain",
-    description: "We deploy your solution seamlessly and ensure its continued performance with ongoing care.",
+    title: "Validation & Impact",
+    description: "We rigorously test our solutions, publish our findings, and collaborate with industry to ensure real-world impact and knowledge transfer.",
     icon: <Rocket className="w-8 h-8" />,
     mockup: "launch",
     gradient: "from-green-500/20 to-green-600/10",
@@ -41,9 +41,9 @@ export default function HowWeWork() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">How We Work</h2>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">Our Research Approach</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            A simple, effective approach to building your brand with excellence.
+            A systematic methodology for advancing knowledge through innovative research and collaborative discovery.
           </p>
         </motion.div>
 

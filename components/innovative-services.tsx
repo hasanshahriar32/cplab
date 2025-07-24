@@ -8,43 +8,43 @@ import Link from "next/link"
 
 const services = [
   {
-    title: "Paid Social",
+    title: "IoT Systems",
     description:
-      "Drive growth and engagement with data-driven paid social media ads, using targeted strategies to elevate your brand.",
+      "Develop intelligent sensor networks and IoT infrastructure for smart cities, industrial monitoring, and environmental sensing applications.",
     mockup: "social",
   },
   {
-    title: "Google Ads",
+    title: "Machine Learning",
     description:
-      "Reach customers at the right moment with Google Ads, driving traffic and sales through targeted online ads.",
+      "Create advanced AI algorithms for predictive analytics, computer vision, and intelligent decision-making systems.",
     mockup: "google-ads",
   },
   {
-    title: "Email / SMS",
-    description: "Reach customers with targeted email and SMS marketing that drives sales, growth, and loyalty.",
+    title: "Cyber-Physical Systems",
+    description: "Design integrated systems that bridge the physical and digital worlds for autonomous and intelligent operations.",
     mockup: "email",
   },
   {
-    title: "SEO",
+    title: "Computer Vision",
     description:
-      "Enhance your search engine visibility with SEO services, including audits, keyword analysis, and optimization.",
+      "Develop visual recognition systems for robotics, autonomous vehicles, and intelligent surveillance applications.",
     mockup: "seo",
   },
   {
-    title: "Analytics",
+    title: "Data Analytics",
     description:
-      "Track performance and gain insights with comprehensive analytics and reporting solutions for data-driven decisions.",
+      "Extract insights from complex datasets using advanced statistical methods and visualization techniques for research and industry.",
     mockup: "analytics",
   },
   {
-    title: "Web Development",
+    title: "Research Collaboration",
     description:
-      "We create everything from simple to complex websites, with flexible plans and custom solutions tailored to your needs.",
+      "Partner with industry and academia on cutting-edge research projects, technology transfer, and innovation initiatives.",
     mockup: "web-dev",
     badges: [
-      { icon: <Shield className="w-4 h-4" />, text: "SSL Secured" },
-      { icon: <DollarSign className="w-4 h-4" />, text: "No Monthly Fees" },
-      { icon: <CheckCircle className="w-4 h-4" />, text: "99.9% Uptime" },
+      { icon: <Shield className="w-4 h-4" />, text: "Peer Reviewed" },
+      { icon: <DollarSign className="w-4 h-4" />, text: "Grant Funded" },
+      { icon: <CheckCircle className="w-4 h-4" />, text: "Published Results" },
     ],
   },
 ]
@@ -62,9 +62,9 @@ export default function InnovativeServices() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">Innovative services for growth</h2>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">Research Excellence & Innovation</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Custom-tailored solutions to streamline, innovate, and grow.
+            Cutting-edge research areas and collaborative opportunities in emerging technologies.
           </p>
         </motion.div>
 
