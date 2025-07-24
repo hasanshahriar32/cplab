@@ -7,6 +7,7 @@ import AnimatedButton from "./animated-button"
 import CountingStats from "./counting-stats"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { useState, useEffect } from "react"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -14,12 +15,60 @@ const pacifico = Pacifico({
   variable: "--font-pacifico",
 })
 
+interface HomepageData {
+  hero: {
+    title: string
+    subtitle: string
+    ctaText: string
+    ctaLink: string
+    backgroundVideo?: any
+  }
+  stats: Array<{
+    value: number
+    suffix: string
+    label: string
+  }>
+}
+
 export default function Hero() {
-  const stats = [
-    { value: 50, suffix: "+", label: "Research Publications" },
-    { value: 25, suffix: "+", label: "Active Students" },
-    { value: 100, suffix: "+", label: "Completed Projects" },
-  ]
+  const [homepageData, setHomepageData] = useState<HomepageData | null>(null)
+
+  // Default fallback data
+  const defaultData: HomepageData = {
+    hero: {
+      title: "CYBER PHYSICAL SYSTEMS RESEARCH Laboratory",
+      subtitle: "At Cyber Physical Lab, we focus on cutting-edge research in IoT, machine learning, computer vision, and cyber-physical systems. Our interdisciplinary approach bridges the gap between physical and digital worlds, driving innovation in smart systems and intelligent technologies.",
+      ctaText: "Explore Research",
+      ctaLink: "/research"
+    },
+    stats: [
+      { value: 50, suffix: "+", label: "Research Publications" },
+      { value: 25, suffix: "+", label: "Active Students" },
+      { value: 100, suffix: "+", label: "Completed Projects" },
+    ]
+  }
+
+  useEffect(() => {
+    // Fetch homepage data from Payload CMS
+    const fetchHomepageData = async () => {
+      try {
+        const response = await fetch('/api/globals/homepage')
+        if (response.ok) {
+          const data = await response.json()
+          setHomepageData(data)
+        } else {
+          setHomepageData(defaultData)
+        }
+      } catch (error) {
+        console.log('Using default homepage data')
+        setHomepageData(defaultData)
+      }
+    }
+
+    fetchHomepageData()
+  }, [])
+
+  const data = homepageData || defaultData
 
   return (
     <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
@@ -87,9 +136,7 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto lg:mx-0"
               >
-                At Cyber Physical Lab, we focus on cutting-edge research in IoT, machine learning, computer vision, and 
-                cyber-physical systems. Our interdisciplinary approach bridges the gap between physical and digital worlds, 
-                driving innovation in smart systems and intelligent technologies.
+                {data.hero.subtitle}
               </motion.p>
             </div>
 
@@ -99,10 +146,10 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="flex flex-col gap-6 items-center justify-center lg:justify-start lg:items-start"
             >
-              <Link href="/research">
+              <Link href={data.hero.ctaLink}>
                 <AnimatedButton variant="slim" className="bg-white text-black hover:bg-gray-100">
                   <span className="flex items-center">
-                    Explore Research
+                    {data.hero.ctaText}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </span>
                 </AnimatedButton>
@@ -147,7 +194,7 @@ export default function Hero() {
               </div>
 
               {/* Stats moved below badges */}
-              <CountingStats stats={stats} />
+              <CountingStats stats={data.stats} />
             </motion.div>
           </motion.div>
         </div>

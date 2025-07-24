@@ -16,6 +16,7 @@ import { Certificates } from "./src/collections/Certificates"
 import { LabNews } from "./src/collections/LabNews"
 import { Settings } from "./src/globals/Settings"
 import { Navigation } from "./src/globals/Navigation"
+import { HomePage } from "./src/globals/HomePage"
 
 // This is imported in the root layout on the frontend
 // https://payloadcms.com/docs/configuration/overview#importing-the-config-in-client-components
@@ -38,7 +39,7 @@ export default buildConfig({
     BlogPosts, 
     Media
   ],
-  globals: [Settings, Navigation],
+  globals: [Settings, Navigation, HomePage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

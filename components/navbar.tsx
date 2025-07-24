@@ -12,7 +12,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="fixed top-4 left-4 right-4 z-50 mx-auto max-w-7xl">
+    <header className="fixed top-4 left-2 right-2 sm:left-4 sm:right-4 z-50 mx-auto max-w-7xl">
       <motion.nav
         className="relative bg-gray-900/60 backdrop-blur-md border rounded-2xl shadow-lg overflow-hidden"
         animate={{
@@ -49,12 +49,13 @@ export default function Navbar() {
           }}
         />
 
-        <div className="relative z-10 px-6 lg:px-8">
+        <div className="relative z-10 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-3">
-                <div className="text-white text-xl font-bold">
-                  Cyber Physical Lab
+                <div className="text-white text-lg sm:text-xl font-bold">
+                  <span className="hidden sm:inline">Cyber Physical Lab</span>
+                  <span className="sm:hidden">CPLab</span>
                 </div>
               </Link>
             </div>
@@ -104,27 +105,51 @@ export default function Navbar() {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-700/50 bg-gray-900/80 backdrop-blur-md rounded-b-2xl">
-            <div className="px-6 py-4 space-y-3">
-              <Link href="/research" className="block text-gray-300 hover:text-blue-400">
+            <div className="px-4 sm:px-6 py-4 space-y-3">
+              <Link 
+                href="/research" 
+                className="block text-gray-300 hover:text-blue-400 py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Research
               </Link>
-              <Link href="/team" className="block text-gray-300 hover:text-purple-400">
+              <Link 
+                href="/team" 
+                className="block text-gray-300 hover:text-purple-400 py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Team
               </Link>
-              <Link href="/publications" className="block text-gray-300 hover:text-green-400">
+              <Link 
+                href="/publications" 
+                className="block text-gray-300 hover:text-green-400 py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Publications
               </Link>
-              <Link href="/news" className="block text-gray-300 hover:text-orange-400">
+              <Link 
+                href="/news" 
+                className="block text-gray-300 hover:text-orange-400 py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 News
               </Link>
-              <Link href="/contact" className="block text-gray-300 hover:text-pink-400">
+              <Link 
+                href="/contact" 
+                className="block text-gray-300 hover:text-pink-400 py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Contact
               </Link>
               <div className="pt-3 border-t border-gray-700">
-                <Link href="/admin" className="block text-gray-300 hover:text-white py-2">
+                <Link 
+                  href="/admin" 
+                  className="block text-gray-300 hover:text-white py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   Admin Login
                 </Link>
-                <Link href="/research" className="block mt-2">
+                <Link href="/research" className="block mt-2" onClick={() => setIsMenuOpen(false)}>
                   <AnimatedButton className="w-full bg-white text-black hover:bg-gray-100">Join Research</AnimatedButton>
                 </Link>
               </div>
