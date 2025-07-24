@@ -5,6 +5,23 @@ export const metadata: Metadata = {
   description: 'You are currently offline. Please check your internet connection.',
 }
 
+function RefreshButton() {
+  const handleRefresh = () => {
+    if (typeof window !== 'undefined') {
+      window.location.reload()
+    }
+  }
+
+  return (
+    <button
+      onClick={handleRefresh}
+      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+    >
+      Try Again
+    </button>
+  )
+}
+
 export default function OfflinePage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -46,12 +63,7 @@ export default function OfflinePage() {
               </ul>
             </div>
             
-            <button
-              onClick={() => window.location.reload()}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Try Again
-            </button>
+            <RefreshButton />
           </div>
         </div>
       </div>
