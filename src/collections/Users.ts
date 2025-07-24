@@ -16,7 +16,7 @@ export const Users: CollectionConfig = {
           <p>Hello ${user?.firstName || 'User'},</p>
           <p>You requested a password reset for your Cyber Lab account. Click the link below to reset your password:</p>
           <p>
-            <a href="${process.env.PAYLOAD_PUBLIC_SERVER_URL}/admin/reset-password?token=${token}" 
+            <a href="${process.env.PAYLOAD_PUBLIC_SERVER_URL}/reset-password?token=${token}" 
                style="background-color: #007cba; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
               Reset Password
             </a>
