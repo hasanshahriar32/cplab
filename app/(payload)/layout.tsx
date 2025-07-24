@@ -1,3 +1,4 @@
+import '@payloadcms/next/css'
 import type React from "react"
 /* THIS FILE WAS GENERATED AUTOMATICALLY BY PAYLOAD. */
 import type { Metadata } from "next"
@@ -7,7 +8,7 @@ import { RootLayout, handleServerFunctions } from "@payloadcms/next/layouts"
 
 import { importMap } from "./admin/importMap.js"
 
-// import "./custom.scss"
+import "./custom.scss"
 
 // Server function that will be passed to RootLayout
 const serverFunction = async (args: any) => {
