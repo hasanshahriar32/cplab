@@ -8,7 +8,6 @@ import { RootLayout, handleServerFunctions } from "@payloadcms/next/layouts"
 
 import { importMap } from "./admin/importMap.js"
 
-import "./custom.scss"
 
 // Server function that will be passed to RootLayout
 const serverFunction = async (args: any) => {
