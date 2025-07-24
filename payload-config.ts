@@ -1,17 +1,31 @@
 import { mongooseAdapter } from "@payloadcms/db-mongodb"
+import { lexicalEditor } from "@payloadcms/richtext-lexical"
 import { buildConfig } from "payload"
+import sharp from "sharp"
 import path from "path"
+
+import { Users } from "./src/collections/Users"
+import { Services } from "./src/collections/Services"
+import { Testimonials } from "./src/collections/Testimonials"
+import { CaseStudies } from "./src/collections/CaseStudies"
+import { BlogPosts } from "./src/collections/BlogPosts"
+import { Media } from "./src/collections/Media"
+import { Settings } from "./src/globals/Settings"
+import { Navigation } from "./src/globals/Navigation"
 
 // This is imported in the root layout on the frontend
 // https://payloadcms.com/docs/configuration/overview#importing-the-config-in-client-components
 
 export default buildConfig({
   admin: {
+    user: Users.slug,
     importMap: {
       baseDir: path.resolve(process.cwd()),
     },
   },
-  collections: [],
+  collections: [Users, Services, Testimonials, CaseStudies, BlogPosts, Media],
+  globals: [Settings, Navigation],
+  editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(process.cwd(), "payload-types.ts"),
@@ -19,5 +33,6 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || "",
   }),
+  sharp,
   plugins: [],
 })
