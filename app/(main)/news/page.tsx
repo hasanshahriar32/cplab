@@ -6,6 +6,15 @@ import BackgroundPaths from "@/components/background-paths"
 import { RecentNews } from "@/components/recent-news"
 import Link from "next/link"
 import { getPayload } from "@/src/lib/payload"
+import { generateMetadata as generateSEOMetadata, generateStructuredData, generateBreadcrumbStructuredData } from "@/lib/seo"
+import { Metadata } from "next"
+
+export const metadata: Metadata = generateSEOMetadata({
+  title: "Lab News & Research Updates",
+  description: "Stay informed about our latest research breakthroughs, achievements, collaborations, and lab activities. Discover cutting-edge developments in cyber-physical systems, IoT, and technology innovation.",
+  url: "/news",
+  type: "website",
+})
 
 interface NewsWithAuthor {
   id: string
@@ -103,6 +112,16 @@ async function getNewsData(searchParams: NewsPageProps['searchParams']): Promise
 export default async function NewsPage({ searchParams }: NewsPageProps) {
   const { news, totalCount, totalPages } = await getNewsData(searchParams)
   const currentPage = parseInt(searchParams.page || '1')
+  
+  // Generate structured data
+  const breadcrumbStructuredData = generateBreadcrumbStructuredData([
+    { name: 'Home', url: '/' },
+    { name: 'News', url: '/news' },
+  ])
+
+  const organizationStructuredData = generateStructuredData({
+    type: 'Organization',
+  })
   const categories = [
     { value: "all", label: "All News", icon: "📰" },
     { value: "lab-update", label: "Lab Updates", icon: "🔬" },
@@ -220,6 +239,20 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
 
   return (
     <div className="relative min-h-screen bg-black">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationStructuredData),
+        }}
+      />
+      
       <BackgroundPaths />
       <AnimatedBackground />
       <BackgroundStripes />

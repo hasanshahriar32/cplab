@@ -8,6 +8,8 @@ import AnimatedFooter from "@/components/animated-footer"
 import BackgroundPaths from "@/components/background-paths"
 import Link from "next/link"
 import { RichText } from "@/components/rich-text"
+import { generateNewsMetadata, generateStructuredData, generateBreadcrumbStructuredData, formatDateForSEO } from "@/lib/seo"
+import { siteConfig } from "@/config/site"
 
 interface NewsDetailProps {
   params: {
@@ -22,6 +24,7 @@ interface NewsWithAuthor {
   excerpt?: string
   content: any // Rich text content
   publishedDate: string
+  updatedAt: string
   category: 'lab-update' | 'research-achievement' | 'publication' | 'event' | 'award' | 'collaboration'
   isFeatured: boolean
   tags?: Array<{ tag: string }>
@@ -34,6 +37,20 @@ interface NewsWithAuthor {
     alt?: string
     url?: string
   }
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({ params }: NewsDetailProps): Promise<Metadata> {
+  const newsItem = await getNewsItem(params.slug)
+  
+  if (!newsItem) {
+    return {
+      title: 'News Not Found',
+      description: 'The requested news article could not be found.',
+    }
+  }
+
+  return generateNewsMetadata(newsItem)
 }
 
 async function getNewsItem(slug: string): Promise<NewsWithAuthor | null> {
@@ -90,27 +107,6 @@ async function getRelatedNews(currentSlug: string, category: string): Promise<Ne
   }
 }
 
-export async function generateMetadata({ params }: NewsDetailProps): Promise<Metadata> {
-  const { slug } = params
-  const newsItem = await getNewsItem(slug)
-
-  if (!newsItem) {
-    return {
-      title: 'News Not Found - Cyber Physical Lab',
-    }
-  }
-
-  return {
-    title: `${newsItem.title} - Cyber Physical Lab`,
-    description: newsItem.excerpt || `Latest news from Cyber Physical Lab: ${newsItem.title}`,
-    openGraph: {
-      title: newsItem.title,
-      description: newsItem.excerpt || `Latest news from Cyber Physical Lab: ${newsItem.title}`,
-      images: newsItem.featuredImage?.url ? [newsItem.featuredImage.url] : undefined,
-    },
-  }
-}
-
 export default async function NewsDetailPage({ params }: NewsDetailProps) {
   const { slug } = params
   const newsItem = await getNewsItem(slug)
@@ -120,6 +116,25 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
   }
 
   const relatedNews = await getRelatedNews(slug, newsItem.category)
+
+  // Generate structured data
+  const articleStructuredData = generateStructuredData({
+    type: 'NewsArticle',
+    name: newsItem.title,
+    description: newsItem.excerpt,
+    url: `/news/${newsItem.slug}`,
+    image: newsItem.featuredImage?.url,
+    datePublished: formatDateForSEO(newsItem.publishedDate),
+    dateModified: formatDateForSEO(newsItem.updatedAt),
+    author: newsItem.author.name || newsItem.author.email,
+    keywords: newsItem.tags?.map(t => t.tag),
+  })
+
+  const breadcrumbStructuredData = generateBreadcrumbStructuredData([
+    { name: 'Home', url: '/' },
+    { name: 'News', url: '/news' },
+    { name: newsItem.title, url: `/news/${newsItem.slug}` },
+  ])
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -151,6 +166,20 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
 
   return (
     <div className="relative min-h-screen bg-black">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
+      
       <BackgroundPaths />
       <AnimatedBackground />
       <BackgroundStripes />

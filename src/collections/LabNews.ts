@@ -185,6 +185,37 @@ export const LabNews: CollectionConfig = {
     {
       name: "excerpt",
       type: "textarea",
+      admin: {
+        description: "Brief summary for SEO and social media (recommended: 120-160 characters)",
+      },
+    },
+    {
+      name: "seoTitle",
+      type: "text",
+      admin: {
+        position: "sidebar",
+        description: "Custom SEO title (if different from main title). Max 60 characters.",
+      },
+      validate: (val: string | null | undefined) => {
+        if (val && val.length > 60) {
+          return 'SEO title should be 60 characters or less'
+        }
+        return true
+      },
+    },
+    {
+      name: "seoDescription",
+      type: "textarea",
+      admin: {
+        position: "sidebar", 
+        description: "Custom meta description for search engines. 120-160 characters recommended.",
+      },
+      validate: (val: string | null | undefined) => {
+        if (val && val.length > 160) {
+          return 'SEO description should be 160 characters or less'
+        }
+        return true
+      },
     },
     {
       name: "featuredImage",

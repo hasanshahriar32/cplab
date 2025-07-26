@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Block admin and API routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /offline/
+Disallow: /reset-password/
+
+# Allow specific API endpoints that might be useful for SEO
+Allow: /api/recent-news
+
+# Sitemap location
+Sitemap: https://cplab.paradox-bd.com/sitemap.xml

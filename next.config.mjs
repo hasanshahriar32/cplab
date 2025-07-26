@@ -10,11 +10,69 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['localhost', 'vercel-blobs-prod'], // Add Vercel Blob CDN domain
+    domains: ['localhost', 'vercel-blobs-prod', 'cyberphysicallab.com'], // Add your domain
     unoptimized: true,
+    formats: ['image/webp', 'image/avif'],
   },
   experimental: {
     reactCompiler: false,
+  },
+  // SEO and performance optimizations
+  poweredByHeader: false,
+  compress: true,
+  swcMinify: true,
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()'
+          }
+        ]
+      },
+      {
+        source: '/sitemap.xml',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 's-maxage=86400, stale-while-revalidate'
+          }
+        ]
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 's-maxage=86400, stale-while-revalidate'
+          }
+        ]
+      }
+    ]
+  },
+  async redirects() {
+    return [
+      // SEO-friendly redirects
+      {
+        source: '/admin',
+        destination: '/admin/login',
+        permanent: false,
+      },
+    ]
   },
 }
 
