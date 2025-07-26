@@ -67,11 +67,11 @@ const nextConfig = {
   async redirects() {
     return [
       // SEO-friendly redirects
-      {
-        source: '/admin',
-        destination: '/admin/login',
-        permanent: false,
-      },
+      // {
+      //   source: '/admin',
+      //   destination: '/admin/login',
+      //   permanent: false,
+      // },
     ]
   },
 }
