@@ -39,7 +39,8 @@ export default function Hero() {
       title: "CYBER PHYSICAL SYSTEMS RESEARCH Laboratory",
       subtitle: "At Cyber Physical Lab, we focus on cutting-edge research in IoT, machine learning, computer vision, and cyber-physical systems. Our interdisciplinary approach bridges the gap between physical and digital worlds, driving innovation in smart systems and intelligent technologies.",
       ctaText: "Explore Research",
-      ctaLink: "/research"
+      ctaLink: "/research",
+      backgroundVideo: null
     },
     stats: [
       { value: 50, suffix: "+", label: "Research Publications" },
@@ -84,7 +85,17 @@ export default function Hero() {
             filter: "brightness(0.9) contrast(1.1)",
           }}
         >
-          <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/momotionmp4%20%282%29-js5jkz69E4tKFmKGf85Nu5y4Suf4GI.mp4" type="video/mp4" />
+          {/* Use video from Payload if available, otherwise use fallback */}
+          {data.hero.backgroundVideo?.url ? (
+            <>
+              <source src={data.hero.backgroundVideo.url} type={`video/${data.hero.backgroundVideo.mimeType?.split('/')[1] || 'mp4'}`} />
+              <source src={data.hero.backgroundVideo.url} type="video/mp4" />
+            </>
+          ) : (
+            <source src="https://cdn-front.freepik.com/revamp/temp/hero/v2-home-video.webm" type="video/webm" />
+          )}
+          {/* Fallback for browsers that don't support the primary format */}
+          <source src="https://cdn-front.freepik.com/revamp/temp/hero/v2-home-video.webm" type="video/webm" />
         </video>
         <div className="absolute inset-0 bg-black/30" />
       </div>

@@ -35,6 +35,12 @@ export const HomePage: GlobalConfig = {
           name: "backgroundVideo",
           type: "upload",
           relationTo: "media",
+          admin: {
+            description: "Upload a background video for the hero section (max 20MB). Supported formats: MP4, WebM, MOV. If no video is uploaded, a default video will be used. Recommended: 1920x1080, 10-30 seconds for smooth looping.",
+          },
+          filterOptions: {
+            mimeType: { contains: 'video' }
+          },
         },
       ],
     },
