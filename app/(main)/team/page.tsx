@@ -106,6 +106,19 @@ export default function TeamPage() {
                 Meet the brilliant minds driving innovation in cyber-physical systems, 
                 IoT, machine learning, and cutting-edge technology research.
               </p>
+              
+              {/* Link to Detailed Profiles */}
+              <div className="mt-8">
+                <a
+                  href="/profiles"
+                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
+                >
+                  View Detailed Profiles
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </section>

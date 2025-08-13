@@ -7,6 +7,7 @@ import sharp from "sharp"
 import path from "path"
 
 import { Users } from "./src/collections/Users"
+import { Profiles } from "./src/collections/Profiles"
 import { Services } from "./src/collections/Services"
 import { Testimonials } from "./src/collections/Testimonials"
 import { CaseStudies } from "./src/collections/CaseStudies"
@@ -33,6 +34,7 @@ export default buildConfig({
   },
   collections: [
     Users, 
+    Profiles,
     ResearchWorks, 
     Certificates, 
     LabNews, 
