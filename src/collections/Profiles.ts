@@ -619,26 +619,25 @@ export const Profiles: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [
-      async ({ doc, operation, req }) => {
-        // Auto-calculate stats
-        const stats = {
-          totalProjects: doc.projects?.length || 0,
-          totalPublications: doc.publications?.length || 0,
-          totalCertificates: doc.certificates?.length || 0,
-          yearsOfExperience: doc.stats?.yearsOfExperience || 0,
+    beforeChange: [
+      async ({ data, operation }) => {
+        // Auto-calculate stats before saving
+        if (operation === 'create' || operation === 'update') {
+          const stats = {
+            totalProjects: data.projects?.length || 0,
+            totalPublications: data.publications?.length || 0,
+            totalCertificates: data.certificates?.length || 0,
+            yearsOfExperience: data.stats?.yearsOfExperience || 0,
+          }
+          
+          // Update the data with calculated stats
+          data.stats = {
+            ...data.stats,
+            ...stats,
+          }
         }
         
-        // Update the document with calculated stats
-        if (operation === 'create' || operation === 'update') {
-          await req.payload.update({
-            collection: 'profiles',
-            id: doc.id,
-            data: {
-              stats,
-            },
-          })
-        }
+        return data
       },
     ],
   },

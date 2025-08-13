@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
 import configPromise from '../../../../payload-config'
 
 export async function GET(
@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     // First try to find by slug
     let profile = null
@@ -70,8 +70,26 @@ export async function PUT(
 ) {
   try {
     const { id } = await params
-    const payload = await getPayloadHMR({ config: configPromise })
-    const data = await request.json()
+    const payload = await getPayload({ config: configPromise })
+    
+    // Better JSON parsing with error handling
+    let data
+    try {
+      const body = await request.text()
+      if (!body || body.trim() === '') {
+        return NextResponse.json(
+          { error: 'Request body is empty' },
+          { status: 400 }
+        )
+      }
+      data = JSON.parse(body)
+    } catch (jsonError) {
+      console.error('JSON parsing error:', jsonError)
+      return NextResponse.json(
+        { error: 'Invalid JSON format in request body' },
+        { status: 400 }
+      )
+    }
 
     // Get user from request (you'll need to implement proper auth)
     const userId = request.headers.get('x-user-id')
@@ -124,7 +142,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     // Get user from request
     const userId = request.headers.get('x-user-id')

@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
 import configPromise from '../../../payload-config'
 
 export async function GET(request: NextRequest) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
     const { searchParams } = new URL(request.url)
     
     const page = parseInt(searchParams.get('page') || '1')
@@ -67,17 +67,76 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
-    const data = await request.json()
-
-    // Get user from request
-    const userId = request.headers.get('x-user-id')
-    const userRole = request.headers.get('x-user-role')
-
-    if (!userId) {
+    const payload = await getPayload({ config: configPromise })
+    
+    // Better parsing with multipart/form-data support
+    let data
+    const contentType = request.headers.get('content-type') || ''
+    
+    if (contentType.includes('multipart/form-data')) {
+      // Handle multipart/form-data (PayloadCMS admin panel)
+      console.log('Parsing multipart/form-data request')
+      const formData = await request.formData()
+      const payloadData = formData.get('_payload')
+      
+      if (typeof payloadData === 'string') {
+        try {
+          data = JSON.parse(payloadData)
+          console.log('Parsed payload data:', JSON.stringify(data, null, 2))
+        } catch (parseError) {
+          console.error('Error parsing _payload field:', parseError)
+          return NextResponse.json(
+            { error: 'Invalid JSON in _payload field' },
+            { status: 400 }
+          )
+        }
+      } else {
+        console.error('_payload field not found in form data')
+        return NextResponse.json(
+          { error: '_payload field not found in form data' },
+          { status: 400 }
+        )
+      }
+    } else if (contentType.includes('application/json')) {
+      // Handle JSON requests (API calls)
+      try {
+        const body = await request.text()
+        console.log('Raw JSON request body:', body)
+        console.log('Body length:', body.length)
+        
+        if (!body || body.trim() === '') {
+          return NextResponse.json(
+            { error: 'Request body is empty' },
+            { status: 400 }
+          )
+        }
+        data = JSON.parse(body)
+      } catch (jsonError) {
+        console.error('JSON parsing error:', jsonError)
+        return NextResponse.json(
+          { error: 'Invalid JSON format in request body', details: (jsonError as Error).message },
+          { status: 400 }
+        )
+      }
+    } else {
       return NextResponse.json(
-        { error: 'Authentication required' },
-        { status: 401 }
+        { error: 'Unsupported content type. Use application/json or multipart/form-data' },
+        { status: 400 }
+      )
+    }
+
+    // Validate required fields
+    if (!data.displayName) {
+      return NextResponse.json(
+        { error: 'Display name is required' },
+        { status: 400 }
+      )
+    }
+
+    if (!data.user) {
+      return NextResponse.json(
+        { error: 'User is required' },
+        { status: 400 }
       )
     }
 
@@ -86,7 +145,7 @@ export async function POST(request: NextRequest) {
       collection: 'profiles',
       where: {
         user: {
-          equals: userId
+          equals: data.user
         }
       }
     })
@@ -98,17 +157,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Ensure user field is set to current user (unless admin creating for someone else)
-    if (userRole !== 'admin') {
-      data.user = userId
-    }
-
     // Create profile
     const newProfile = await payload.create({
       collection: 'profiles',
       data: data,
     })
 
+    console.log('Profile created successfully:', newProfile.id)
     return NextResponse.json(newProfile, { status: 201 })
   } catch (error) {
     console.error('Error creating profile:', error)
