@@ -37,14 +37,18 @@ interface NewsWithAuthor {
 }
 
 interface NewsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     category?: string
     sort?: 'newest' | 'oldest' | 'featured'
     page?: string
-  }
+  }>
 }
 
-async function getNewsData(searchParams: NewsPageProps['searchParams']): Promise<{
+async function getNewsData(searchParams: {
+  category?: string
+  sort?: 'newest' | 'oldest' | 'featured'
+  page?: string
+}): Promise<{
   news: NewsWithAuthor[]
   totalCount: number
   totalPages: number
@@ -110,8 +114,9 @@ async function getNewsData(searchParams: NewsPageProps['searchParams']): Promise
 }
 
 export default async function NewsPage({ searchParams }: NewsPageProps) {
-  const { news, totalCount, totalPages } = await getNewsData(searchParams)
-  const currentPage = parseInt(searchParams.page || '1')
+  const resolvedSearchParams = await searchParams
+  const { news, totalCount, totalPages } = await getNewsData(resolvedSearchParams)
+  const currentPage = parseInt(resolvedSearchParams.page || '1')
   
   // Generate structured data
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
@@ -167,8 +172,16 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
   }
 
   const createUrl = (params: { category?: string; sort?: string; page?: string }) => {
-    const url = new URLSearchParams(searchParams as any)
+    const url = new URLSearchParams()
     
+    // Add current search params
+    Object.entries(resolvedSearchParams).forEach(([key, value]) => {
+      if (value && value !== 'all') {
+        url.set(key, value)
+      }
+    })
+    
+    // Override with new params
     Object.entries(params).forEach(([key, value]) => {
       if (value && value !== 'all') {
         url.set(key, value)
@@ -285,8 +298,8 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
               {/* Category Filter */}
               <div className="flex flex-wrap gap-3">
                 {categories.map((category) => {
-                  const isActive = searchParams.category === category.value || 
-                    (!searchParams.category && category.value === 'all')
+                  const isActive = resolvedSearchParams.category === category.value || 
+                    (!resolvedSearchParams.category && category.value === 'all')
                   return (
                     <Link
                       key={category.value}
@@ -309,8 +322,8 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                 <span className="text-sm text-gray-400">Sort by:</span>
                 <div className="flex space-x-2">
                   {sortOptions.map((option) => {
-                    const isActive = searchParams.sort === option.value || 
-                      (!searchParams.sort && option.value === 'newest')
+                    const isActive = resolvedSearchParams.sort === option.value || 
+                      (!resolvedSearchParams.sort && option.value === 'newest')
                     return (
                       <Link
                         key={option.value}
