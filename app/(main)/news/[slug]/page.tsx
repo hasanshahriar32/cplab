@@ -12,9 +12,9 @@ import { generateNewsMetadata, generateStructuredData, generateBreadcrumbStructu
 import { siteConfig } from "@/config/site"
 
 interface NewsDetailProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 interface NewsWithAuthor {
@@ -41,7 +41,8 @@ interface NewsWithAuthor {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: NewsDetailProps): Promise<Metadata> {
-  const newsItem = await getNewsItem(params.slug)
+  const { slug } = await params
+  const newsItem = await getNewsItem(slug)
   
   if (!newsItem) {
     return {
@@ -108,7 +109,7 @@ async function getRelatedNews(currentSlug: string, category: string): Promise<Ne
 }
 
 export default async function NewsDetailPage({ params }: NewsDetailProps) {
-  const { slug } = params
+  const { slug } = await params
   const newsItem = await getNewsItem(slug)
   
   if (!newsItem) {
